@@ -1,0 +1,34 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-view1">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+      .one{
+        background: white;
+      }
+    </style>
+    
+
+    <div class="card">
+      <h1>Shotokan</h1>
+      <p>A family run and non-political dojo associated with Funakoshi's Shotokan Karate Association. The framework is loosely based on the traditionally Japanese Art of Shotokan Karate as created by Bushi Gichin Funakoshi. It has been modernized and distilled under the tutelage of Master Kenneth Funakoshi and is now the way of the Art.</p>
+    </div>
+
+    <div class="card">
+      <h1>Awards</h1>
+      <p>Dojo of the Year 1992, '93, '96 & '98. FSKA World Championships: Black Belt Team Champions 2006.</p>
+    </div>
+  </template>
+
+  <script>
+    class MyView1 extends Polymer.Element {
+      static get is() { return 'my-view1'; }
+    }
+
+    window.customElements.define(MyView1.is, MyView1);
+  </script>
+</dom-module>

@@ -1,0 +1,370 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="my-icons.html">
+
+<link rel="lazy-import" href="my-view1.html">
+<link rel="lazy-import" href="my-view2.html">
+<link rel="lazy-import" href="my-view3.html">
+<link rel="lazy-import" href="my-view404.html">
+
+<dom-module id="my-app">
+  <template>
+    <style>
+      :host {
+        --app-primary-color: #232323;
+        --app-secondary-color: black;
+
+        display: block;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
+
+      app-header {
+        color: white;
+        text-align: center;
+        transition: background-color 0.5s ease;
+        background-color: var(--app-primary-color);
+      }
+
+      app-header.ishome {
+        background-color: rgba(0, 0, 0, 0);
+      }
+
+      app-header[shadow] {
+        background-color: var(--app-primary-color);
+      }
+
+      .link {
+        @apply --layout-horizontal;
+        @apply --layout-center-center;
+      }
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
+
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+      }
+
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: #424242;
+        line-height: 40px;
+      }
+
+      .drawer-list a.iron-selected {
+        color: var(--app-accent-color);
+        font-weight: bold;
+        background-color: #eeeeee;
+      }
+
+      div[main-title] {
+        padding-left: 10px;
+        text-align: center;
+        font-weight: 600;
+        display: flex;
+        align-content: flex-start;
+      }
+
+      #drawer-toolbar {
+        background-color: var(--app-primary-light);
+      }
+
+      #hero{
+        margin-top: -64px;
+      }
+
+      .main {
+        min-height: 650px;
+        height: 100vh;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        background-color: #62781b;
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+          ),
+          url('../images/assets/o.jpg');
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+        text-transform: uppercase;
+        color: white;
+      }
+
+      .vertical-flex-container {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .main h1 {
+        margin: 0;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 30px;
+        font-size: 35px;
+        font-weight: 500;
+      }
+
+      .main h4 {
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .hide-this {
+        display: none;
+      }
+
+      .bold700 {
+        font-weight: 700;
+      }
+
+      .main-logo {
+        max-height: 200px;
+        height: 100%;
+        width: auto;
+      }
+
+      @media (min-width: 767px) {
+        .main h1 {
+          font-size: 70px;
+        }
+        .main h4 {
+          font-size: 18px;
+        }
+
+        .main-logo {
+          max-height: 250px;
+        }
+
+        .main {
+          min-height: 900px;
+        }
+      }
+
+      @media all and (min-width: 1050px) {
+        .main h1 {
+          font-size: 90px;
+        }
+        .main h4 {
+          font-size: 25px;
+        }
+        .main {
+          min-height: 1100px;
+        }
+
+        .main-logo {
+          max-height: 300px;
+        }
+      }
+    </style>
+
+    <app-location
+        route="{{route}}"
+        url-space-regex="^[[rootPath]]">
+    </app-location>
+
+    <app-route
+        route="{{route}}"
+        pattern="[[rootPath]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}">
+    </app-route>
+
+    <app-drawer-layout fullbleed narrow="{{narrow}}">
+      <!-- Drawer content -->
+      <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <a name="view1" href="[[rootPath]]view1">Home</a>
+          <a name="view2" href="[[rootPath]]view2">About</a>
+          <a name="view3" href="[[rootPath]]view3">Contact</a>
+        </iron-selector>
+      </app-drawer>
+
+      <!-- Main content -->
+      <app-header-layout id="appheader" has-scrolling-region>
+
+        <app-header id="mainToolbar" slot="header" condenses reveals effects="waterfall">
+          <app-toolbar>
+            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <div main-title>Carrillo&apos;s Karate Studio</div>
+          </app-toolbar>
+        </app-header>
+
+        <div id="hero"
+        class="main vertical-flex-container hide-this">
+        <img class="main-logo"
+          src="../images/assets/logo.jpg">
+
+        <h4></h4>
+        <h1>
+          <br>
+          
+          <br>
+
+          <span class="bold700">
+            <span />
+
+          </span>
+        </h1>
+        <paper-fab icon="app-icons:arrow-down"
+          on-tap="handleClick" />
+      </div>
+        <iron-pages
+            selected="[[page]]"
+            attr-for-selected="name"
+            fallback-selection="view404"
+            role="main">
+          <my-view1 name="view1"></my-view1>
+          <my-view2 name="view2"></my-view2>
+          <my-view3 name="view3"></my-view3>
+          <my-view404 name="view404"></my-view404>
+        </iron-pages>
+      </app-header-layout>
+    </app-drawer-layout>
+  </template>
+
+  <script>
+    class MyApp extends Polymer.Element {
+      static get is() { return 'my-app'; }
+
+      static get properties() {
+        return {
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+          routeData: Object,
+          subroute: String,
+          // This shouldn't be neccessary, but the Analyzer isn't picking up
+          // Polymer.Element#rootPath
+          rootPath: String,
+        };
+      }
+
+      static get observers() {
+        return [
+          '_routePageChanged(routeData.page)',
+        ];
+      }
+
+      _routePageChanged(page) {
+        // If no page was found in the route data, page will be an empty string.
+        // Default to 'view1' in that case.
+        this.page = page || 'view1';
+
+        // Close a non-persistent drawer when the page & route are changed.
+        if (!this.$.drawer.persistent) {
+          this.$.drawer.close();
+        }
+      }
+
+      _pageChanged(page) {        // Load page import on demand. Show 404 page if fails
+        let href;
+        switch (page) {
+          case 'view1':
+            $(this.$.mainToolbar).toggleClass('ishome', true);
+            $(this.$.hero).toggleClass('hide-this', false);
+            $(this.$.appheader.shadowRoot.childNodes[2].childNodes[3]).css('paddingTop', '');
+            href = 'my-view1.html';
+            break;
+          case 'view2':
+            $(this.$.mainToolbar).toggleClass('ishome', false);
+            $(this.$.hero).toggleClass('hide-this', true);
+            console.log(this.$.appheader.shadowRoot.childNodes);
+            $(this.$.appheader.shadowRoot.childNodes[2].childNodes[3]).css(
+              'paddingTop',
+              '64px',
+            );
+            href = 'my-view2.html';
+            break;
+          case 'view3':
+            $(this.$.mainToolbar).toggleClass('ishome', false);
+            $(this.$.hero).toggleClass('hide-this', true);
+            $(this.$.appheader.shadowRoot.childNodes[2].childNodes[3]).css(
+              'paddingTop',
+              '64px',
+            );
+            href = 'my-view3.html';
+            break;
+          case 'contact':
+            $(this.$.mainToolbar).toggleClass('ishome', false);
+            $(this.$.hero).toggleClass('hide-this', true);
+            $(this.$.appheader.shadowRoot.childNodes[2].childNodes[3]).css(
+              'paddingTop',
+              '64px',
+            );
+            href = 'view-contact.html';
+            break;
+          default:
+            $(this.$.mainToolbar).toggleClass('ishome', false);
+            $(this.$.hero).toggleClass('hide-this', true);
+            $(this.$.appheader.shadowRoot.childNodes[2].childNodes[3]).css(
+              'paddingTop',
+              '64px',
+            );
+            href = 'my-view404.html';
+            break;
+        }
+
+        Polymer.importHref(
+            this.resolveUrl(href),
+            null,
+            this._showPage404.bind(this),
+            true);
+      }
+
+      _showPage404() {
+        this.page = 'view404';
+      }
+    }
+
+    window.customElements.define(MyApp.is, MyApp);
+  </script>
+</dom-module>
