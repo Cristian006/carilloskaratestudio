@@ -37,7 +37,7 @@ export default function Home() {
       footer: {
         contact: {
           title: "Contáctanos",
-          email: "info@carilloskarate.com"
+          email: "carrillochris831@gmail.com"
         },
         hours: {
           title: "Horario",
@@ -72,7 +72,7 @@ export default function Home() {
       footer: {
         contact: {
           title: "Contact Us",
-          email: "info@carilloskarate.com"
+          email: "carrillochris831@gmail.com"
         },
         hours: {
           title: "Hours",
