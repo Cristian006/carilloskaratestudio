@@ -15,7 +15,7 @@ export default function Home() {
 
   const content = {
     es: {
-      title: "Carrillo's Karate Studio",
+      title: "Carrillo's Karate Do Studio",
       motto: "Disciplina • Respeto • Excelencia",
       hero: {
         title: "Transforma Tu Vida a Través de las Artes Marciales",
@@ -50,7 +50,7 @@ export default function Home() {
       langButton: "English"
     },
     en: {
-      title: "Carrillo's Karate Studio",
+      title: "Carrillo's Karate Do Studio",
       motto: "Discipline • Respect • Excellence",
       hero: {
         title: "Transform Your Life Through Martial Arts",
