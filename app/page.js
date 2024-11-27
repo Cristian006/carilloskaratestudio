@@ -286,7 +286,7 @@ export default function Home() {
             </div>
           </div>
           <div className="md:text-center text-gray-500 text-sm text-start">
-            © {new Date().getFullYear()} Carrillo's Karate Do Studio. All rights reserved.
+            © {new Date().getFullYear()} Carrillo&apos;s Karate Do Studio. All rights reserved.
           </div>
         </div>
       </footer>

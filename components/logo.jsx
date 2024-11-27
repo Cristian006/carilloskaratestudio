@@ -13,7 +13,7 @@ export default function Logo() {
                 <path id="textPath" d="M 150,150 m -120,0 a 120,120 0 1,1 240,0 a 120,120 0 1,1 -240,0" fill="transparent"/>
                 <text className="text-[20px] fill-black transition-[fill] duration-300">
                     <textPath href="#textPath" startOffset="25%" text-anchor="middle" style={{ letterSpacing: '2px' }}>
-                        Carrillo's Karate Do Studio
+                        Carrillo&apos;s Karate Do Studio
                     </textPath>
                     <textPath href="#textPath" startOffset="75%" text-anchor="middle" style={{ letterSpacing: '4px', fontWeight: "bolder", fontFamily: "'Shippori Mincho', serif" }}>
                         カリロ空手道場
