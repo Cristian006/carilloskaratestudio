@@ -111,6 +111,10 @@ export default function Home() {
           { color: "black", name: "Negro", meaning: "La maestría y el inicio de un nuevo viaje" }
         ]
       },
+      startJourney: {
+        title: "Comienza Tu Viaje Hoy",
+        subtitle: "No necesitas cita - ¡simplemente preséntate y comienza tu transformación! Tu primera clase es gratis."
+      }
     },
     en: {
       title: "Carrillo's Karate Do Studio",
@@ -183,10 +187,21 @@ export default function Home() {
           { color: "black", name: "Black", meaning: "Mastery and beginning of a new journey" }
         ]
       },
+      startJourney: {
+        title: "Start Your Journey Today",
+        subtitle: "No appointment needed - just show up and begin your transformation! Your first class is on us."
+      }
     }
   };
 
   const t = isEnglish ? content.en : content.es;
+
+  const scrollToSchedule = () => {
+    document.getElementById('schedule-section').scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] min-h-screen bg-white overflow-x-hidden">
@@ -233,6 +248,7 @@ export default function Home() {
                 dangerouslySetInnerHTML={{ __html: t.hero.subtitle }}
               />
               <motion.button
+                onClick={scrollToSchedule}
                 className="relative border-2 border-black text-black px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-2 hover:bg-red-600 hover:text-black hover:border-black transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -256,10 +272,10 @@ export default function Home() {
         </section>
 
         {/* Training Philosophy Section */}
-        <section className="relative bg-black text-white py-24 px-6">
+        <section className="relative bg-gray-100 text-black py-24 px-6">
           <div className="max-w-6xl mx-auto relative">
             <div className="flex items-center gap-4 mb-4 justify-center">
-              <h2 className="text-xl uppercase font-bold">{t.training.title}</h2>
+              <h2 className="text-xl uppercase font-bold text-center">{t.training.title}</h2>
             </div>
             <p className="text-xl opacity-75 leading-relaxed max-w-3xl mx-auto mb-12 text-center">{t.training.subtitle}</p>
 
@@ -267,7 +283,7 @@ export default function Home() {
               {t.training.benefits.map((benefit, index) => (
                 <motion.div 
                   key={index} 
-                  className="bg-transparent border-white text-white flex flex-col items-center text-center p-10 border-2 rounded-xl transition-transform duration-300 ease-in-out"
+                  className="bg-white border-black text-black flex flex-col items-center text-center p-10 border-2 rounded-xl transition-transform duration-300 ease-in-out"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 >
@@ -326,30 +342,41 @@ export default function Home() {
         </section>
 
         {/* Schedule & Location - Now side by side without cards */}
-        <section className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-16 py-24 px-6">
-          <div>
-            <h2 className="text-3xl font-thin mb-8">{t.schedule.title}</h2>
-            <div className="space-y-4">
-              <div className="border-l-2 border-red-600 pl-6">
-                <h3 className="text-xl mb-2">{t.schedule.beginners}</h3>
-                <p className="text-gray-600">{t.schedule.times.begAdv} - 7:00 PM - 8:00 PM</p>
-              </div>
+        <section id="schedule-section" className="bg-gray-100 py-24 px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-xl uppercase font-bold mb-4">{t.startJourney.title}</h2>
+              <p className="text-xl opacity-75 max-w-2xl mx-auto">
+                {t.startJourney.subtitle}
+              </p>
             </div>
-          </div>
+            
+            <div className="grid md:grid-cols-2 gap-16">
+              <div>
+                <h2 className="text-3xl font-thin mb-8">{t.schedule.title}</h2>
+                <div className="space-y-4">
+                  <div className="border-l-2 border-red-600 pl-6">
+                    <h3 className="text-xl mb-2">{t.schedule.beginners}</h3>
+                    <p className="text-gray-600">{t.schedule.times.begAdv} - 7:00 PM - 8:00 PM</p>
+                  </div>
+                </div>
+              </div>
 
-          <div>
-            <h2 className="text-3xl font-thin mb-8">{t.location.title}</h2>
-            <div className="border-l-2 border-red-600 pl-6">
-              <p className="text-xl mb-2">{t.location.address1}</p>
-              <p className="mb-4">{t.location.address2}</p>
-              <p className="text-gray-600">{t.location.features}</p>
+              <div>
+                <h2 className="text-3xl font-thin mb-8">{t.location.title}</h2>
+                <div className="border-l-2 border-red-600 pl-6">
+                  <p className="text-xl mb-2">{t.location.address1}</p>
+                  <p className="mb-4">{t.location.address2}</p>
+                  <p className="text-gray-600">{t.location.features}</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
       {/* Footer - Now more minimal */}
-      <footer className="py-16 px-6 bg-gray-100">
+      <footer className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col gap-4">
           </div>
