@@ -4,11 +4,32 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function SignupDialog() {
+const content = {
+  es: {
+    button: "¡Únete Ahora! 🥋",
+    title: "¡Únete a nuestras clases!",
+    description: "Regístrate para nuestras clases y obtén las dos primeras clases gratis para nuestros primeros cinco registrados. ¡Y la primera clase siempre es gratis incluso si perdiste la fecha límite!",
+    emailPlaceholder: "Correo electrónico",
+    submit: "¡Vamos!",
+    close: "Cerrar"
+  },
+  en: {
+    button: "Join Now! 🥋",
+    title: "Join our classes!",
+    description: "Sign up for our classes and get first two classes free to our first five registrants. And first class is always free even if you missed the deadline!",
+    emailPlaceholder: "Email",
+    submit: "Let's go!",
+    close: "Close"
+  }
+};
+
+export default function SignupDialog({ isOpen, onClose, isEnglish = false }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [email, setEmail] = useState("");
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  const t = isEnglish ? content.en : content.es;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +47,7 @@ export default function SignupDialog() {
     // Handle form submission here
     console.log('Email submitted:', email);
     setIsExpanded(false);
+    onClose();
   };
 
   return (
@@ -38,15 +60,15 @@ export default function SignupDialog() {
           className="fixed bottom-4 right-4 md:bottom-8 md:right-8 bg-black text-white p-8 rounded-3xl shadow-lg max-w-md z-50"
         >
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold">Join our classes!</h2>
+            <h2 className="text-2xl font-bold">{t.title}</h2>
             <p className="text-gray-300 text-lg leading-relaxed">
-              Sign up for our classes and get first two classes free to our first five registrants. And first class is always free even if you missed the deadline!
+              {t.description}
             </p>
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
                 <Input
                   type="email"
-                  placeholder="Email"
+                  placeholder={t.emailPlaceholder}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="bg-transparent border-b-2 border-white placeholder:text-gray-400 text-white"
@@ -56,15 +78,18 @@ export default function SignupDialog() {
                     type="submit"
                     className="w-full bg-white text-black hover:bg-gray-200"
                   >
-                    Let&apos;s go!
+                    {t.submit}
                   </Button>
                   <Button
                     type="button"
                     variant="ghost"
-                    onClick={() => setIsExpanded(false)}
+                    onClick={() => {
+                      setIsExpanded(false);
+                      onClose();
+                    }}
                     className="w-full text-white hover:bg-white/10 hover:text-white"
                   >
-                    Close
+                    {t.close}
                   </Button>
                 </div>
               </div>
@@ -84,7 +109,7 @@ export default function SignupDialog() {
           onClick={() => setIsExpanded(true)}
           className="fixed bottom-4 right-4 md:bottom-8 md:right-8 bg-black text-white hover:bg-gray-900 rounded-full px-6 py-4 text-lg font-semibold shadow-lg"
         >
-          Join Now! 🥋
+          {t.button}
         </motion.button>
       )}
     </AnimatePresence>

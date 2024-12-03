@@ -407,7 +407,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
-      <SignupDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} />
+      <SignupDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} isEnglish={isEnglish} />
     </div>
   );
 }
