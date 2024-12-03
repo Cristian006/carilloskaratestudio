@@ -13,6 +13,28 @@ import Logo from "@/components/logo";
 import { motion } from "framer-motion";
 import SignupDialog from "@/components/SignupDialog";
 
+const BELT_COLORS = {
+  white: '#f3f4f6',
+  yellow: '#fbbf24',
+  orange: '#f97316',
+  green: '#22c55e',
+  blue: '#3b82f6',
+  purple: '#a855f7',
+  brown: '#8B4513',
+  black: '#000000'
+};
+
+const JAPANESE_NUMBERS = {
+  white: '一',   // 1
+  yellow: '二',  // 2
+  orange: '三',  // 3
+  green: '四',   // 4
+  blue: '五',    // 5
+  purple: '六',  // 6
+  brown: '七',   // 7
+  black: '八'    // 8
+};
+
 export default function Home() {
   const [isEnglish, setIsEnglish] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -24,7 +46,7 @@ export default function Home() {
       motto: ["Disciplina", "Respeto", "Excelencia"],
       hero: {
         title: "Inicia Tu Camino",
-        subtitle: "¿Tienes lo necesario para convertirte en un verdadero guerrero? Únete a nuestro dojo para dominar el camino del karate, ganar tu <strong>honor</strong> y forjar tu destino junto a otros guerreros en entrenamiento.",
+        subtitle: "¿Tienes lo necesario para convertirte en un verdadero <span class='text-red-700 font-bold'>guerrero</span>? Únete a nuestro dojo para dominar el camino del karate, ganar tu <strong>honor</strong> y forjar tu <strong>destino</strong> junto a otros guerreros en entrenamiento.",
         cta: "Acepta el Desafío"
       },
       schedule: {
@@ -56,6 +78,7 @@ export default function Home() {
       langButton: "English",
       training: {
         title: "Nuestra Filosofía de Entrenamiento",
+        subtitle: "Descubre los beneficios de entrenar con nosotros",
         benefits: [
           {
             title: "Desarrollo Físico",
@@ -73,7 +96,21 @@ export default function Home() {
             icon: "⭐"
           }
         ]
-      }
+      },
+      belts: {
+        title: "Rangos de Cinturón",
+        subtitle: "¿Tienes lo que se necesita para alcanzar la maestría? Con dedicación y perseverancia, cada cinturón está a tu alcance.",
+        ranks: [
+          { color: "white", name: "Blanco", meaning: "Pureza y comienzo" },
+          { color: "yellow", name: "Amarillo", meaning: "Los primeros rayos del sol del conocimiento" },
+          { color: "orange", name: "Naranja", meaning: "El poder creciente" },
+          { color: "green", name: "Verde", meaning: "El crecimiento y desarrollo" },
+          { color: "blue", name: "Azul", meaning: "El cielo hacia el cual crece el árbol" },
+          { color: "purple", name: "Morado", meaning: "La transición hacia estados avanzados" },
+          { color: "brown", name: "Café", meaning: "La semilla plantada madura" },
+          { color: "black", name: "Negro", meaning: "La maestría y el inicio de un nuevo viaje" }
+        ]
+      },
     },
     en: {
       title: "Carrillo's Karate Do Studio",
@@ -81,7 +118,7 @@ export default function Home() {
       motto: ["Discipline", "Respect", "Excellence"],
       hero: {
         title: "Start Your Journey",
-        subtitle: "Do you have what it takes to become a true <span class='text-red-700 font-bold'>warrior</span>?<br/>Join our dojo to master the way of karate, earn your <strong>honor</strong>, and forge your path alongside fellow warriors-in-training.",
+        subtitle: "Do you have what it takes to become a true <span class='text-red-700 font-bold'>warrior</span>?<br/>Join our dojo to master the way of karate, earn your <strong>honor</strong>, and forge your <strong>destiny</strong> alongside fellow warriors-in-training.",
         cta: "Accept the Challenge"
       },
       schedule: {
@@ -113,6 +150,7 @@ export default function Home() {
       langButton: "Español",
       training: {
         title: "Our Training Philosophy",
+        subtitle: "Discover the benefits of training with us",
         benefits: [
           {
             title: "Physical Development",
@@ -130,14 +168,28 @@ export default function Home() {
             icon: "⭐"
           }
         ]
-      }
+      },
+      belts: {
+        title: "Belt Rankings",
+        subtitle: "Do you have what it takes to achieve mastery? With dedication and perseverance, every belt is within your reach.",
+        ranks: [
+          { color: "white", name: "White", meaning: "Purity and beginning" },
+          { color: "yellow", name: "Yellow", meaning: "First rays of knowledge's sun" },
+          { color: "orange", name: "Orange", meaning: "Growing power" },
+          { color: "green", name: "Green", meaning: "Growth and development" },
+          { color: "blue", name: "Blue", meaning: "The sky towards which the tree grows" },
+          { color: "purple", name: "Purple", meaning: "Transition to advanced states" },
+          { color: "brown", name: "Brown", meaning: "The planted seed matures" },
+          { color: "black", name: "Black", meaning: "Mastery and beginning of a new journey" }
+        ]
+      },
     }
   };
 
   const t = isEnglish ? content.en : content.es;
 
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] min-h-screen bg-gray-50">
+    <div className="grid grid-rows-[auto_1fr_auto] min-h-screen bg-white overflow-x-hidden">
       {/* Header */}
       <header className="text-black py-8 flex flex-col items-center">
         <div className="hidden md:flex justify-center mt-8 md:mt-0">
@@ -161,71 +213,112 @@ export default function Home() {
         <Logo />
       </div>
       {/* Main Content */}
-      <main className="flex flex-col gap-24 px-6 w-full">
+      <main className="flex flex-col w-full">
         {/* Hero Section - Now full-width with gradient background */}
-        <section className="relative bg-gradient-to-b from-gray-50 to-white py-24">
-          {/* Adjusted decorative kanji positioning and z-index */}
-          <div className="absolute left-0 top-0 -translate-y-1/2 z-0 select-none pointer-events-none overflow-visible w-full">
-            <span className="text-[20rem] text-red-300/20 font-serif absolute -left-12">
-              旅
-            </span>
-          </div>
+        <section className="relative py-24 px-6">
+          <div className="max-w-6xl mx-auto relative">
+            {/* Adjusted decorative kanji positioning and z-index */}
+            <div className="absolute left-0 top-0 translate-y-50 select-none pointer-events-none overflow-visible w-full">
+              <span className="text-[20rem] text-red-300/20 font-serif absolute -left-12">
+                旅
+              </span>
+            </div>
 
-          <div className="max-w-4xl mx-auto text-center relative z-10">
-            <h2 className="text-xl uppercase font-bold mb-8 text-black leading-tight">
-              {t.hero.title}
-            </h2>
-            <p
-              className="text-xl opacity-75 leading-relaxed max-w-3xl mx-auto mb-12"
-              dangerouslySetInnerHTML={{ __html: t.hero.subtitle }}
-            />
-            <motion.button
-              className="relative border-2 border-black text-black px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-2 hover:border-red-600 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {t.hero.cta}
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-red-600 transform scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-100"></span>
-              <motion.span
-                animate={{
-                  x: [0, 5, 0],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                }}
+            <div className="max-w-4xl mx-auto text-center relative">
+              <h2 className="text-xl uppercase font-bold mb-8 text-black leading-tight">
+                {t.hero.title}
+              </h2>
+              <p
+                className="text-xl  leading-relaxed max-w-3xl mx-auto mb-12"
+                dangerouslySetInnerHTML={{ __html: t.hero.subtitle }}
+              />
+              <motion.button
+                className="relative border-2 border-black text-black px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-2 hover:bg-red-600 hover:text-black hover:border-black transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                →
-              </motion.span>
-            </motion.button>
+                {t.hero.cta}
+                <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-100"></span>
+                <motion.span
+                  animate={{
+                    x: [0, 5, 0],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                  }}
+                >
+                  →
+                </motion.span>
+              </motion.button>
+            </div>
           </div>
         </section>
 
         {/* Training Philosophy Section */}
-        <section className="relative bg-gradient-to-b from-gray-50 to-white py-24">
-          {/* Decorative kanji background */}
-          <div className="absolute left-0 top-0 -translate-y-1/2 z-0 select-none pointer-events-none overflow-visible w-full">
-            <span className="text-[20rem] text-red-300/20 font-serif absolute -left-12">
-              道
-            </span>
-          </div>
-
-          <div className="max-w-6xl mx-auto relative z-10">
-            <div className="flex items-center gap-4 mb-16 justify-center">
-              <h2 className="text-xl uppercase font-bold text-black">{t.training.title}</h2>
+        <section className="relative bg-black text-white py-24 px-6">
+          <div className="max-w-6xl mx-auto relative">
+            <div className="flex items-center gap-4 mb-4 justify-center">
+              <h2 className="text-xl uppercase font-bold">{t.training.title}</h2>
             </div>
-            
-            <div className="grid md:grid-cols-3 gap-16">
+            <p className="text-xl opacity-75 leading-relaxed max-w-3xl mx-auto mb-12 text-center">{t.training.subtitle}</p>
+
+            <div className="grid md:grid-cols-3 gap-8">
               {t.training.benefits.map((benefit, index) => (
                 <motion.div 
                   key={index} 
-                  className="flex flex-col items-center text-center p-8 rounded-lg"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+                  className="bg-transparent border-white text-white flex flex-col items-center text-center p-10 border-2 rounded-xl transition-transform duration-300 ease-in-out"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <div className="text-4xl mb-6">{benefit.icon}</div>
-                  <h3 className="text-xl font-semibold mb-4">{benefit.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
+                  <div className="text-4xl mb-4">{benefit.icon}</div>
+                  <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
+                  <p className="leading-relaxed">{benefit.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Belt Rankings Section */}
+        <section className="py-24 px-6 bg-gray-50">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-xl uppercase font-bold mb-4">{t.belts.title}</h2>
+              <p className="text-xl opacity-75">{t.belts.subtitle}</p>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {t.belts.ranks.map((belt, index) => (
+                <motion.div
+                  key={index}
+                  className="flex flex-col items-center gap-4"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="relative w-full h-48 flex justify-center">
+                    <div className="relative w-48">
+                      <span 
+                        className="absolute left-0 top-0 text-[5rem] font-serif"
+                        style={{ 
+                          color: belt.color === 'white' || belt.color === 'black' ? 'black' : BELT_COLORS[belt.color],
+                          opacity: belt.color === 'white' ? 0.1 : 0.4
+                        }}
+                      >
+                        {JAPANESE_NUMBERS[belt.color]}
+                      </span>
+                      <div className="absolute left-1/2 -translate-x-1/2 w-8 h-48 rounded-sm overflow-hidden">
+                        <div 
+                          className={`absolute inset-0 ${belt.color === 'white' ? 'border border-gray-200' : ''}`}
+                          style={{ backgroundColor: BELT_COLORS[belt.color] }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <h3 className="font-semibold mb-1">{belt.name}</h3>
+                    <p className="text-sm text-gray-600">{belt.meaning}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -233,7 +326,7 @@ export default function Home() {
         </section>
 
         {/* Schedule & Location - Now side by side without cards */}
-        <section className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-16 py-16">
+        <section className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-16 py-24 px-6">
           <div>
             <h2 className="text-3xl font-thin mb-8">{t.schedule.title}</h2>
             <div className="space-y-4">
@@ -256,7 +349,7 @@ export default function Home() {
       </main>
 
       {/* Footer - Now more minimal */}
-      <footer className="py-16 px-6 bg-white">
+      <footer className="py-16 px-6 bg-gray-100">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col gap-4">
           </div>
@@ -278,10 +371,7 @@ export default function Home() {
                 <a href="mailto:carrillochris831@gmail.com"><Mail /></a>
               </Button>
               <Button variant="ghost" className="hover:text-red-500" asChild>
-                <a href="#"><Facebook /></a>
-              </Button>
-              <Button variant="ghost" className="hover:text-red-500" asChild>
-                <a href="#"><Instagram /></a>
+                <a href="https://www.facebook.com/CarrillosKarateStudio"><Facebook /></a>
               </Button>
             </div>
           </div>

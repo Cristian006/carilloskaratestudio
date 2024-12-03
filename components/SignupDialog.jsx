@@ -35,7 +35,7 @@ export default function SignupDialog() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.8, opacity: 0 }}
-          className="fixed bottom-8 right-8 bg-black text-white p-8 rounded-3xl shadow-lg max-w-md"
+          className="fixed bottom-8 right-8 bg-black text-white p-8 rounded-3xl shadow-lg max-w-md z-50"
         >
           <div className="space-y-6">
             <h2 className="text-2xl font-bold">Join our classes!</h2>
@@ -62,7 +62,7 @@ export default function SignupDialog() {
                     type="button"
                     variant="ghost"
                     onClick={() => setIsExpanded(false)}
-                    className="w-full text-white hover:bg-white/10"
+                    className="w-full text-white hover:bg-white/10 hover:text-white"
                   >
                     Close
                   </Button>
