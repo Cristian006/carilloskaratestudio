@@ -58,9 +58,9 @@ export default function Home() {
       },
       location: {
         title: "Ubicación",
-        address1: "Patriot Park",
+        address1: "1351 Oak Avenue",
         address2: "Greenfield, CA 93927",
-        features: "Amplio estacionamiento • Ubicación céntrica conveniente"
+        features: "Green Field Community Center • Ubicación céntrica conveniente"
       },
       footer: {
         contact: {
@@ -69,7 +69,7 @@ export default function Home() {
         },
         hours: {
           title: "Horario",
-          weekdays: "Lunes - Viernes: 7PM - 8PM",
+          weekdays: "Lunes - Viernes: 7PM - 8:30PM",
         },
         social: {
           title: "Redes Sociales"
@@ -114,6 +114,24 @@ export default function Home() {
       startJourney: {
         title: "Comienza Tu Viaje Hoy",
         subtitle: "No necesitas cita - ¡simplemente preséntate y comienza tu transformación! Tu primera clase es gratis."
+      },
+      instructors: {
+        title: "Conoce a Tus Instructores",
+        subtitle: "Aprende con nuestro experimentado equipo de padre e hijo",
+        senseis: [
+          {
+            name: "Sensei Rigo Carrillo",
+            role: "Instructor Principal",
+            description: "Con décadas de experiencia en artes marciales, el Sensei Rigo aporta experiencia y sabiduría del karate tradicional a cada clase.",
+            image: "/sensei-rigo.jpg"
+          },
+          {
+            name: "Sensei Christopher Carrillo",
+            role: "Instructor",
+            description: "Siguiendo los pasos de su padre, el Sensei Christopher combina métodos de enseñanza tradicionales con enfoques modernos de entrenamiento.",
+            image: ""
+          }
+        ]
       }
     },
     en: {
@@ -134,9 +152,9 @@ export default function Home() {
       },
       location: {
         title: "Location",
-        address1: "Patriot Park",
+        address1: "1351 Oak Avenue",
         address2: "Greenfield, CA 93927",
-        features: "Ample parking available • Convenient downtown location"
+        features: "Green Field Community Center • Convenient downtown location"
       },
       footer: {
         contact: {
@@ -145,7 +163,7 @@ export default function Home() {
         },
         hours: {
           title: "Hours",
-          weekdays: "Monday - Friday: 7PM - 8PM",
+          weekdays: "Monday - Friday: 7PM - 8:30PM",
         },
         social: {
           title: "Social Media"
@@ -190,6 +208,24 @@ export default function Home() {
       startJourney: {
         title: "Start Your Journey Today",
         subtitle: "No appointment needed - just show up and begin your transformation! Your first class is on us."
+      },
+      instructors: {
+        title: "Meet Your Instructors",
+        subtitle: "Learn from our experienced father and son team",
+        senseis: [
+          {
+            name: "Sensei Rigo Carrillo",
+            role: "Head Instructor",
+            description: "With decades of experience in martial arts, Sensei Rigo brings traditional karate expertise and wisdom to every class.",
+            image: "/sensei-rigo.jpg"
+          },
+          {
+            name: "Sensei Christopher Carrillo",
+            role: "Instructor",
+            description: "Following in his father's footsteps, Sensei Christopher combines traditional teaching methods with modern training approaches.",
+            image: ""
+          }
+        ]
       }
     }
   };
@@ -272,7 +308,7 @@ export default function Home() {
         </section>
 
         {/* Training Philosophy Section */}
-        <section className="relative bg-gray-100 text-black py-24 px-6">
+        <section className="relative bg-gray-50 text-black py-24 px-6">
           <div className="max-w-6xl mx-auto relative">
             <div className="flex items-center gap-4 mb-4 justify-center">
               <h2 className="text-xl uppercase font-bold text-center">{t.training.title}</h2>
@@ -290,6 +326,44 @@ export default function Home() {
                   <div className="text-4xl mb-4">{benefit.icon}</div>
                   <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
                   <p className="leading-relaxed">{benefit.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Instructors Section */}
+        <section className="py-24 px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-xl uppercase font-bold mb-4">{t.instructors.title}</h2>
+              <p className="text-xl opacity-75">{t.instructors.subtitle}</p>
+            </div>
+            
+            <div className="grid md:grid-cols-1 gap-12">
+              {t.instructors.senseis.filter(sensei => sensei.image).map((sensei, index) => (
+                <motion.div
+                  key={index}
+                  className="flex flex-col items-center text-center"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="w-48 h-48 mb-6 rounded-full overflow-hidden border-8 border-black">
+                    {sensei.image ? (
+                      <img 
+                        src={sensei.image} 
+                        alt={sensei.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <Swords className="w-16 h-16 text-gray-400" />
+                      </div>
+                    )}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">{sensei.name}</h3>
+                  <p className="text-red-600 font-medium mb-4">{sensei.role}</p>
+                  <p className="text-gray-600 max-w-md">{sensei.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -407,7 +481,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
-      <SignupDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} isEnglish={isEnglish} />
+      {/** <SignupDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} isEnglish={isEnglish} /> */}
     </div>
   );
 }
